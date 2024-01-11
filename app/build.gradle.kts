@@ -1,3 +1,12 @@
+// Dependency version management
+val coreKtxVersion = "1.12.0"
+val lifecycleRuntimeKtxVersion = "2.6.2"
+val activityComposeVersion = "1.8.2"
+val constraintLayoutVersion = "2.1.4"
+val constraintLayoutComposeVersion = "1.0.1"
+val appCompatVersion = "1.6.1"
+val jUnitVersion = "4.13.2"
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -5,12 +14,12 @@ plugins {
 
 android {
     namespace = "com.example.wheelofdespair"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.wheelofdespair"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -48,9 +57,9 @@ android {
 
 dependencies {
     // BASE
-    implementation("androidx.core:core-ktx:1.9.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
-    implementation("androidx.activity:activity-compose:1.7.0")
+    implementation("androidx.core:core-ktx:$coreKtxVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion")
+    implementation("androidx.activity:activity-compose:$activityComposeVersion")
     implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
@@ -58,13 +67,13 @@ dependencies {
     implementation("androidx.compose.material3:material3")
 
     // CUSTOM
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.constraintlayout:constraintlayout:$constraintLayoutVersion")
     // To use constraintlayout in compose
-    implementation("androidx.constraintlayout:constraintlayout-compose:1.0.1")
-    implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.constraintlayout:constraintlayout-compose:$constraintLayoutComposeVersion")
+    implementation("androidx.appcompat:appcompat:$appCompatVersion")
 
     // TEST
-    testImplementation("junit:junit:4.13.2")
+    testImplementation("junit:junit:$jUnitVersion")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
