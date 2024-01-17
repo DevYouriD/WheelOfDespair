@@ -6,6 +6,7 @@ val constraintLayoutVersion = "2.1.4"
 val constraintLayoutComposeVersion = "1.0.1"
 val appCompatVersion = "1.6.1"
 val jUnitVersion = "4.13.2"
+val composeBomVersion = "2023.10.01"
 
 plugins {
     id("com.android.application")
@@ -60,7 +61,6 @@ dependencies {
     implementation("androidx.core:core-ktx:$coreKtxVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion")
     implementation("androidx.activity:activity-compose:$activityComposeVersion")
-    implementation(platform("androidx.compose:compose-bom:2023.03.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
@@ -71,15 +71,17 @@ dependencies {
     // To use constraintlayout in compose
     implementation("androidx.constraintlayout:constraintlayout-compose:$constraintLayoutComposeVersion")
     implementation("androidx.appcompat:appcompat:$appCompatVersion")
+    implementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
 
     // TEST
     testImplementation("junit:junit:$jUnitVersion")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    androidTestImplementation(platform("androidx.compose:compose-bom:$composeBomVersion"))
 
     // DEBUG
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
+
