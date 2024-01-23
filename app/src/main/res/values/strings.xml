@@ -3,4 +3,5 @@
     <string name="UserName">Username</string>
     <string name="UserPassword">Password</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="test">Test</string>
 </resources>

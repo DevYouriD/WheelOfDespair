@@ -1,4 +1,4 @@
-package com.example.wheelofdespair.sqlite
+package com.example.wheelofdespair.views
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,8 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wheelofdespair.R
-import com.example.wheelofdespair.views.MainActivity
+import com.example.wheelofdespair.sqlite.DataBaseHelper
+import com.example.wheelofdespair.sqlite.UserModel
 
 class SqliteActivity : AppCompatActivity() {
 
@@ -41,8 +42,7 @@ class SqliteActivity : AppCompatActivity() {
         btn_add.setOnClickListener {
             try {
                 userModel = UserModel(-1, et_name.text.toString(), et_password.text.toString().toString())
-                val success: Boolean = dataBaseHelper.addUser(userModel)
-                // Toast.makeText(this@SqliteActivity, "Success = $success", Toast.LENGTH_SHORT).show()
+                dataBaseHelper.addUser(userModel)
             } catch (e: Exception) {
                 Toast.makeText(this@SqliteActivity, "Invalid format, please fill in all fields", Toast.LENGTH_SHORT).show()
             }
@@ -65,7 +65,6 @@ class SqliteActivity : AppCompatActivity() {
             val selectedUser = parent.getItemAtPosition(position) as UserModel
             dataBaseHelper.deleteUser(selectedUser)
             updateListView(dataBaseHelper)
-            // Toast.makeText(this@SqliteActivity, "Deleted $selectedUser", Toast.LENGTH_SHORT).show()
         }
     }
     private fun updateListView(dataBaseHelper: DataBaseHelper) {

@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- BASE COLORS -->
     <color name="colorPrimary">#072E33</color>
     <color name="colorPrimaryDark">#05161A</color>
     <color name="colorAccent">#6DA5C0</color>
 
+    <!-- WHEEL COLORS -->
+    <color name="wheelColor1">#1a1334 </color>
+    <color name="wheelColor2">#26294a</color>
+    <color name="wheelColor3">#01545a</color>
+    <color name="wheelColor4">#017351</color>
+    <color name="wheelColor5">#03c383</color>
+    <color name="wheelColor6">#aad962</color>
+    <color name="wheelColor7">#fbbf45</color>
+    <color name="wheelColor8">#ef6a32</color>
+    <color name="wheelColor9">#ed0345</color>
+    <color name="wheelColor10">#a12a5e</color>
+    <color name="wheelColor11">#710162</color>
+    <color name="wheelColor12">#022c7d</color>
+
+    <!-- DEFAULT COLORS -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>

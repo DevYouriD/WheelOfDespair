@@ -1,5 +1,13 @@
 # WheelOfDespair
 
+## ToDO
+- Display list items within wheel
+- Make the wheel rotation random
+- Create user input
+- Save user input in db
+- Create popup for "winner" (and confetti animation?)
+
+# MASTER SLAVE ARCHITECTURE
 ## Instructions
 To create an Android Kotlin app with both user and admin versions that can trigger events simultaneously across all user/client versions, you'll need to implement a client-server architecture with real-time communication. Here's a high-level overview of the steps to achieve this:
 
