@@ -50,6 +50,7 @@ class WheelActivity : AppCompatActivity() {
             getColor(R.color.wheelColor12)
         )
 
+        //wheelHelper.setItemsAndColors(data.size, colors, data)
         wheelHelper.setItemsAndColors(data.size, colors.reversedArray(), data)
 
         var fromDegrees = 0f
@@ -57,7 +58,14 @@ class WheelActivity : AppCompatActivity() {
         wheelHelper.setOnClickListener()
         {
             println("FROM DEGREES: " + fromDegrees + " TO DEGREES: " + randomToDegrees + "\nDIFFERENCE EQUALS: " + (randomToDegrees - fromDegrees))
-            playRotateAnimation(wheelHelper, fromDegrees, randomToDegrees)
+
+            if (fromDegrees < Float.MAX_VALUE && randomToDegrees < Float.MAX_VALUE) {
+                playRotateAnimation(wheelHelper, fromDegrees, randomToDegrees)
+            } else {
+                fromDegrees = 0f
+                randomToDegrees = (1080..1800).random().toFloat()
+                playRotateAnimation(wheelHelper, fromDegrees, randomToDegrees)
+            }
             fromDegrees = randomToDegrees
             randomToDegrees += (1080..1800).random().toFloat()
         }
