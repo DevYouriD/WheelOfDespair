@@ -1,10 +1,11 @@
 # WheelOfDespair
 
 ## ToDO
-- Display list items within wheel
-- Make the wheel rotation random
-- Create user input
-- Save user input in db
+- ~~Display list items within wheel~~
+- ~~Make the wheel rotation random~~
+- ~~Create user input~~
+- ~~Save user input in db~~
+- Make user input editable?
 - Create popup for "winner" (and confetti animation?)
 
 # MASTER SLAVE ARCHITECTURE
