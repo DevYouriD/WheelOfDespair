@@ -5,31 +5,34 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wheelofdespair.R
 import com.example.wheelofdespair.sqlite.DataBaseHelper
-import com.example.wheelofdespair.sqlite.UserModel
+import com.example.wheelofdespair.sqlite.DataModel
 
 class SqliteActivity : AppCompatActivity() {
 
-    private lateinit var et_name: EditText
-    private lateinit var et_password: EditText
+    private lateinit var input: EditText
+
     private lateinit var btn_add: Button
     private lateinit var btn_deleteAll: Button
-    private lateinit var returnToHomePageButton: Button
+    
+    private lateinit var returnToHomePageButton: ImageButton
+    
     private lateinit var lv_userList: ListView
 
-    private lateinit var userArrayAdapter: ArrayAdapter<UserModel>
+    private lateinit var dataArrayAdapter: ArrayAdapter<DataModel>
     private lateinit var dataBaseHelper: DataBaseHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sqlite)
 
-        et_name = findViewById(R.id.et_name)
-        et_password = findViewById(R.id.et_password)
+        input = findViewById(R.id.input)
+
         btn_add = findViewById(R.id.btn_add)
         btn_deleteAll = findViewById(R.id.btn_deleteAll)
         returnToHomePageButton = findViewById(R.id.returnToHomePageButton)
@@ -37,14 +40,15 @@ class SqliteActivity : AppCompatActivity() {
 
         dataBaseHelper = DataBaseHelper(this@SqliteActivity)
         updateListView(dataBaseHelper)
-        var userModel: UserModel
+        var dataModel: DataModel
 
         btn_add.setOnClickListener {
-            try {
-                userModel = UserModel(-1, et_name.text.toString(), et_password.text.toString().toString())
-                dataBaseHelper.addUser(userModel)
-            } catch (e: Exception) {
-                Toast.makeText(this@SqliteActivity, "Invalid format, please fill in all fields", Toast.LENGTH_SHORT).show()
+
+            if (input.text.toString() != "") {
+                dataModel = DataModel(-1, input.text.toString())
+                dataBaseHelper.addData(dataModel)
+            } else {
+                Toast.makeText(this@SqliteActivity, "Input can not be empty", Toast.LENGTH_SHORT).show()
             }
             val dataBaseHelper = DataBaseHelper(this@SqliteActivity)
             updateListView(dataBaseHelper)
@@ -57,22 +61,23 @@ class SqliteActivity : AppCompatActivity() {
         }
 
         returnToHomePageButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+            val intent = Intent(this, WheelActivity::class.java)
             startActivity(intent)
         }
 
         lv_userList.setOnItemClickListener { parent, _, position, _ ->
-            val selectedUser = parent.getItemAtPosition(position) as UserModel
-            dataBaseHelper.deleteUser(selectedUser)
+            val selectedData = parent.getItemAtPosition(position) as DataModel
+            dataBaseHelper.deleteData(selectedData)
             updateListView(dataBaseHelper)
         }
     }
+
     private fun updateListView(dataBaseHelper: DataBaseHelper) {
-        userArrayAdapter = ArrayAdapter<UserModel>(
-            this@SqliteActivity,
-            android.R.layout.simple_list_item_1,
-            dataBaseHelper.allUsers
-        )
-        lv_userList.adapter = userArrayAdapter
+      dataArrayAdapter = CustomArrayAdapter(
+          this@SqliteActivity,
+          R.layout.custom_list_view,
+          R.id.textViewInput,
+          dataBaseHelper.allData)
+      lv_userList.adapter = dataArrayAdapter
     }
 }

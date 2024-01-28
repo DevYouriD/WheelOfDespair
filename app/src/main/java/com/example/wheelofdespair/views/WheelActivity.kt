@@ -1,28 +1,28 @@
 package com.example.wheelofdespair.views
 
+import com.example.wheelofdespair.wheel.WheelHelper
+import androidx.appcompat.app.AppCompatActivity
+import android.view.animation.RotateAnimation
+import android.view.animation.Animation
+import com.example.wheelofdespair.R
+import android.widget.ArrayAdapter
+import android.widget.ImageButton
+import android.widget.ListView
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.view.animation.Animation
-import android.view.animation.RotateAnimation
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.ListView
-import androidx.appcompat.app.AppCompatActivity
-import com.example.wheelofdespair.R
-import com.example.wheelofdespair.wheel.WheelHelper
 
 class WheelActivity : AppCompatActivity() {
 
-    private lateinit var returnToHomePageButton: Button
+    private lateinit var openDbPageButton: ImageButton
     private lateinit var itemList: ListView
     private lateinit var wheelHelper: WheelHelper
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_test)
+        setContentView(R.layout.activity_wheel)
 
-        returnToHomePageButton = findViewById(R.id.returnToHomePageButton)
+        openDbPageButton = findViewById(R.id.openDbPageButton)
         itemList = findViewById(R.id.lv_userList)
         wheelHelper = findViewById(R.id.pieChartView)
 
@@ -57,7 +57,7 @@ class WheelActivity : AppCompatActivity() {
         var randomToDegrees = (1080..1800).random().toFloat()
         wheelHelper.setOnClickListener()
         {
-            println("FROM DEGREES: " + fromDegrees + " TO DEGREES: " + randomToDegrees + "\nDIFFERENCE EQUALS: " + (randomToDegrees - fromDegrees))
+            //println("FROM DEGREES: " + fromDegrees + " TO DEGREES: " + randomToDegrees + "\nDIFFERENCE EQUALS: " + (randomToDegrees - fromDegrees))
 
             if (fromDegrees < Float.MAX_VALUE && randomToDegrees < Float.MAX_VALUE) {
                 playRotateAnimation(wheelHelper, fromDegrees, randomToDegrees)
@@ -70,8 +70,8 @@ class WheelActivity : AppCompatActivity() {
             randomToDegrees += (1080..1800).random().toFloat()
         }
 
-        returnToHomePageButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+        openDbPageButton.setOnClickListener {
+            val intent = Intent(this, SqliteActivity::class.java)
             startActivity(intent)
         }
     }
@@ -91,8 +91,3 @@ class WheelActivity : AppCompatActivity() {
         view.startAnimation(animation)
     }
 }
-
-
-
-
-
