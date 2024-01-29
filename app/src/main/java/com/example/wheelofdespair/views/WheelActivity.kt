@@ -11,12 +11,17 @@ import android.widget.ListView
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.example.wheelofdespair.sqlite.DataBaseHelper
+import com.example.wheelofdespair.sqlite.DataModel
 
 class WheelActivity : AppCompatActivity() {
 
     private lateinit var openDbPageButton: ImageButton
     private lateinit var itemList: ListView
     private lateinit var wheelHelper: WheelHelper
+
+    private lateinit var dataBaseHelper: DataBaseHelper
+    private lateinit var data: ArrayList<DataModel>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,12 +31,18 @@ class WheelActivity : AppCompatActivity() {
         itemList = findViewById(R.id.lv_userList)
         wheelHelper = findViewById(R.id.pieChartView)
 
+        dataBaseHelper = DataBaseHelper(this)
+        //data = ArrayList(dataBaseHelper.allData)
+
         // TODO: Replace prefilled list with user input list
+
         val data = arrayOf(
             "Item 1", "Item 2", "Item 3", "Item 4",
             "Item 5", "Item 6", "Item 7", "Item 8",
-//            "Item 9", "Item 10", "Item 11", "Item 12"
+            "Item 9", "Item 10", "Item 11", "Item 12"
         )
+
+        //val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, DataModel.getNamesArray(data))
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, data)
         itemList.adapter = adapter
 
@@ -50,7 +61,7 @@ class WheelActivity : AppCompatActivity() {
             getColor(R.color.wheelColor12)
         )
 
-        //wheelHelper.setItemsAndColors(data.size, colors, data)
+        //wheelHelper.setItemsAndColors(data.size, colors.reversedArray(), DataModel.getNamesArray(data))
         wheelHelper.setItemsAndColors(data.size, colors.reversedArray(), data)
 
         var fromDegrees = 0f
