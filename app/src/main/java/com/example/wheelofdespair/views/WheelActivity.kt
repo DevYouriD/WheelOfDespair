@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.animation.RotateAnimation
 import android.view.animation.Animation
 import com.example.wheelofdespair.R
-import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.ListView
 import android.content.Intent
@@ -32,19 +31,7 @@ class WheelActivity : AppCompatActivity() {
         wheelHelper = findViewById(R.id.pieChartView)
 
         dataBaseHelper = DataBaseHelper(this)
-        //data = ArrayList(dataBaseHelper.allData)
-
-        // TODO: Replace prefilled list with user input list
-
-        val data = arrayOf(
-            "Item 1", "Item 2", "Item 3", "Item 4",
-            "Item 5", "Item 6", "Item 7", "Item 8",
-            "Item 9", "Item 10", "Item 11", "Item 12"
-        )
-
-        //val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, DataModel.getNamesArray(data))
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, data)
-        itemList.adapter = adapter
+        data = ArrayList(dataBaseHelper.allData)
 
         val colors = intArrayOf(
             getColor(R.color.wheelColor1),
@@ -61,15 +48,31 @@ class WheelActivity : AppCompatActivity() {
             getColor(R.color.wheelColor12)
         )
 
-        //wheelHelper.setItemsAndColors(data.size, colors.reversedArray(), DataModel.getNamesArray(data))
-        wheelHelper.setItemsAndColors(data.size, colors.reversedArray(), data)
+        // Dynamically change colors
+//        var setColors = IntArray(data.size)
+//        var counter = 0
+//        for (item in 0 until data.size) {
+//            setColors[item] = colors[counter % colors.size]
+//            counter++
+//        }
+
+        // Dynamically change colors (own solution)
+        val setColors = IntArray(data.size)
+        var counter = 0
+        for (item in 0 until data.size) {
+            if (counter == 12){
+                counter = 0
+            }
+            setColors[item] = colors[counter]
+            counter++
+        }
+
+        wheelHelper.setItemsAndColors(data.size, setColors.reversedArray(), DataModel.getNamesArray(data))
 
         var fromDegrees = 0f
         var randomToDegrees = (1080..1800).random().toFloat()
         wheelHelper.setOnClickListener()
         {
-            //println("FROM DEGREES: " + fromDegrees + " TO DEGREES: " + randomToDegrees + "\nDIFFERENCE EQUALS: " + (randomToDegrees - fromDegrees))
-
             if (fromDegrees < Float.MAX_VALUE && randomToDegrees < Float.MAX_VALUE) {
                 playRotateAnimation(wheelHelper, fromDegrees, randomToDegrees)
             } else {
