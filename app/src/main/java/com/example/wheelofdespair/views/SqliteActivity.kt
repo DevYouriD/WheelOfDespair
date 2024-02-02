@@ -7,6 +7,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ListView
+import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wheelofdespair.R
@@ -67,8 +68,25 @@ class SqliteActivity : AppCompatActivity() {
 
         lv_userList.setOnItemClickListener { parent, _, position, _ ->
             val selectedData = parent.getItemAtPosition(position) as DataModel
-            dataBaseHelper.deleteData(selectedData)
-            updateListView(dataBaseHelper)
+
+            val popupMenu = PopupMenu(this@SqliteActivity, lv_userList)
+            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.edit_option -> {
+                        Toast.makeText(this@SqliteActivity, "Implement edit", Toast.LENGTH_SHORT).show()
+                        true
+                    }
+                    R.id.delete_option -> {
+                        dataBaseHelper.deleteData(selectedData)
+                        updateListView(dataBaseHelper)
+                        true
+                    }
+                    else -> false
+                }
+            }
+            popupMenu.show()
         }
     }
 

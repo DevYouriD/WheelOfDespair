@@ -74,24 +74,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return  returnList;
     }
 
-    public List<String> getInputData() {
-        List<String> returnList = new ArrayList<>();
-        String queryString = "SELECT " + COLUMN_INPUT + " FROM " + DATA_TABLE;
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(queryString, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                String input = cursor.getString(0);
-                returnList.add(input);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        db.close();
-
-        return returnList;
-    }
-
     public void clearDb() {
         String dropTableStatement = "DROP TABLE " + DATA_TABLE;
         SQLiteDatabase db = this.getWritableDatabase();

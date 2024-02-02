@@ -48,7 +48,7 @@ class WheelActivity : AppCompatActivity() {
             getColor(R.color.wheelColor12)
         )
 
-        // Dynamically change colors
+        // Alternative
 //        var setColors = IntArray(data.size)
 //        var counter = 0
 //        for (item in 0 until data.size) {
