@@ -8,7 +8,6 @@ import android.graphics.Rect
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
-import androidx.compose.ui.text.toUpperCase
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -37,9 +36,9 @@ class WheelHelper @JvmOverloads constructor(
         typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         isAntiAlias = true
 
-        // Set up multiple text shadows to create a stronger border effect
-        setShadowLayer(8f, 0f, 0f, Color.BLACK) // First layer: 8px black shadow
-        setShadowLayer(12f, 0f, 0f, Color.BLACK) // Second layer: 12px black shadow
+        // Multiple text shadows layers for stronger border effect
+        setShadowLayer(8f, 0f, 0f, Color.BLACK)
+        setShadowLayer(12f, 0f, 0f, Color.BLACK)
     }
 
     override fun onDraw(canvas: Canvas) {
