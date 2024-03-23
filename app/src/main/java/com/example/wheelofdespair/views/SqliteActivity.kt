@@ -1,7 +1,9 @@
 package com.example.wheelofdespair.views
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -9,6 +11,8 @@ import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.PopupMenu
 import android.widget.Toast
+import android.window.OnBackInvokedDispatcher
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wheelofdespair.R
 import com.example.wheelofdespair.sqlite.DataBaseHelper
@@ -62,32 +66,21 @@ class SqliteActivity : AppCompatActivity() {
         }
 
         returnToHomePageButton.setOnClickListener {
-            val intent = Intent(this, WheelActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, WheelActivity::class.java))
         }
 
         lv_userList.setOnItemClickListener { parent, _, position, _ ->
             val selectedData = parent.getItemAtPosition(position) as DataModel
-
-            val popupMenu = PopupMenu(this@SqliteActivity, lv_userList)
-            popupMenu.menuInflater.inflate(R.menu.popup_menu, popupMenu.menu)
-
-            popupMenu.setOnMenuItemClickListener { item ->
-                when (item.itemId) {
-                    R.id.edit_option -> {
-                        Toast.makeText(this@SqliteActivity, "Implement edit", Toast.LENGTH_SHORT).show()
-                        true
-                    }
-                    R.id.delete_option -> {
-                        dataBaseHelper.deleteData(selectedData)
-                        updateListView(dataBaseHelper)
-                        true
-                    }
-                    else -> false
-                }
-            }
-            popupMenu.show()
+            showEditPopup(selectedData)
         }
+
+        // Modify back-button behavior
+        onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                startActivity(Intent(this@SqliteActivity, WheelActivity::class.java))
+                finish()
+            }
+        })
     }
 
     private fun updateListView(dataBaseHelper: DataBaseHelper) {
@@ -97,5 +90,33 @@ class SqliteActivity : AppCompatActivity() {
           R.id.textViewInput,
           dataBaseHelper.allData)
       lv_userList.adapter = dataArrayAdapter
+    }
+
+    private fun showEditPopup(data: DataModel) {
+        val inflater = LayoutInflater.from(this)
+        val view = inflater.inflate(R.layout.edit_data, null)
+
+        val editTextData = view.findViewById<EditText>(R.id.editTextData)
+        val btnSave = view.findViewById<Button>(R.id.btnSave)
+        val btnCancel = view.findViewById<Button>(R.id.btnCancel)
+
+        editTextData.setText(data.input)
+
+        val dialogBuilder = AlertDialog.Builder(this)
+            .setView(view)
+
+        val dialog = dialogBuilder.create()
+
+        btnSave.setOnClickListener {
+            val editedText = editTextData.text.toString()
+            //dataBaseHelper.updateData(data, editedText)
+            updateListView(dataBaseHelper)
+            dialog.dismiss()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 }

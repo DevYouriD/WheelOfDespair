@@ -48,14 +48,15 @@ class WheelActivity : AppCompatActivity() {
             getColor(R.color.wheelColor12)
         )
 
-        // Alternative
-//        var setColors = IntArray(data.size)
-//        var counter = 0
-//        for (item in 0 until data.size) {
-//            setColors[item] = colors[counter % colors.size]
-//            counter++
-//        }
-
+        /** Clean code alternative (using modulo)
+         *
+            var setColors = IntArray(data.size)
+            var counter = 0
+            for (item in 0 until data.size) {
+                setColors[item] = colors[counter % colors.size]
+                counter++
+            }
+         */
         // Dynamically change colors (own solution)
         val setColors = IntArray(data.size)
         var counter = 0

@@ -9,4 +9,8 @@
     <string name="UserName">Username</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="item">Item</string>
+    <string name="save">Save</string>
+    <string name="input_editor">Input Editor</string>
+    <string name="cancel">Cancel</string>
 </resources>

@@ -1,12 +1,12 @@
 // Dependency version management
 val coreKtxVersion = "1.12.0"
-val lifecycleRuntimeKtxVersion = "2.6.2"
+val lifecycleRuntimeKtxVersion = "2.7.0"
 val activityComposeVersion = "1.8.2"
 val constraintLayoutVersion = "2.1.4"
 val constraintLayoutComposeVersion = "1.0.1"
 val appCompatVersion = "1.6.1"
 val jUnitVersion = "4.13.2"
-val composeBomVersion = "2023.10.01"
+val composeBomVersion = "2024.02.02"
 
 plugins {
     id("com.android.application")

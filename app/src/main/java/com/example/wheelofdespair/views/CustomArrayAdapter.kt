@@ -8,12 +8,20 @@ import android.widget.TextView
 import android.content.Context
 import android.view.ViewGroup
 import android.view.View
+import android.widget.Button
+import android.widget.ImageButton
+import com.example.wheelofdespair.sqlite.DataBaseHelper
 
-class CustomArrayAdapter(context: Context, resource: Int, textViewResourceId: Int, objects: List<DataModel>) :
-    ArrayAdapter<DataModel>(context, resource, textViewResourceId, objects) {
+class CustomArrayAdapter(
+    context: Context,
+    resource: Int,
+    textViewResourceId: Int,
+    private val dataList: MutableList<DataModel>
+) : ArrayAdapter<DataModel>(context, resource, textViewResourceId, dataList) {
 
     private class ViewHolder {
         lateinit var textViewInput: TextView
+        lateinit var deleteButton: ImageButton
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -26,13 +34,26 @@ class CustomArrayAdapter(context: Context, resource: Int, textViewResourceId: In
 
             viewHolder = ViewHolder()
             viewHolder.textViewInput = rowView.findViewById(R.id.textViewInput)
+            viewHolder.deleteButton = rowView.findViewById(R.id.deleteButton)
 
             rowView.tag = viewHolder
         } else {
             rowView = convertView
             viewHolder = rowView.tag as ViewHolder
         }
-        viewHolder.textViewInput.text = getItem(position)?.input ?: ""
+
+        val data = getItem(position)
+        viewHolder.textViewInput.text = data?.input ?: ""
+
+        viewHolder.deleteButton.setOnClickListener {
+            // Delete from Database
+            val databaseHelper = DataBaseHelper(context)
+            data?.let { databaseHelper.deleteData(it) }
+
+            // Delete from ListView
+            dataList.removeAt(position)
+            notifyDataSetChanged()
+        }
 
         return rowView
     }
