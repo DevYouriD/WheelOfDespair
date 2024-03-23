@@ -69,11 +69,6 @@ class SqliteActivity : AppCompatActivity() {
             startActivity(Intent(this, WheelActivity::class.java))
         }
 
-        lv_userList.setOnItemClickListener { parent, _, position, _ ->
-            val selectedData = parent.getItemAtPosition(position) as DataModel
-            showEditPopup(selectedData)
-        }
-
         // Modify back-button behavior
         onBackPressedDispatcher.addCallback(this, object: OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -83,40 +78,13 @@ class SqliteActivity : AppCompatActivity() {
         })
     }
 
-    private fun updateListView(dataBaseHelper: DataBaseHelper) {
+    fun updateListView(dataBaseHelper: DataBaseHelper) {
       dataArrayAdapter = CustomArrayAdapter(
+          this,
           this@SqliteActivity,
           R.layout.custom_list_view,
           R.id.textViewInput,
           dataBaseHelper.allData)
       lv_userList.adapter = dataArrayAdapter
-    }
-
-    private fun showEditPopup(data: DataModel) {
-        val inflater = LayoutInflater.from(this)
-        val view = inflater.inflate(R.layout.edit_data, null)
-
-        val editTextData = view.findViewById<EditText>(R.id.editTextData)
-        val btnSave = view.findViewById<Button>(R.id.btnSave)
-        val btnCancel = view.findViewById<Button>(R.id.btnCancel)
-
-        editTextData.setText(data.input)
-
-        val dialogBuilder = AlertDialog.Builder(this)
-            .setView(view)
-
-        val dialog = dialogBuilder.create()
-
-        btnSave.setOnClickListener {
-            val editedText = editTextData.text.toString()
-            //dataBaseHelper.updateData(data, editedText)
-            updateListView(dataBaseHelper)
-            dialog.dismiss()
-        }
-
-        btnCancel.setOnClickListener {
-            dialog.dismiss()
-        }
-        dialog.show()
     }
 }
