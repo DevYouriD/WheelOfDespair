@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) { db.execSQL(CREATE_TABLE_STATEMENT); }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) { }
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) { /* n/a */ }
 
     public boolean addData(DataModel dataModel) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -37,6 +39,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         long insert = db.insert(DATA_TABLE, null, cv);
         return insert != -1;
+    }
+
+    public void updateData(@NotNull DataModel dataModel, @NotNull String editedText) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+
+        cv.put(COLUMN_INPUT, editedText);
+        db.update(DATA_TABLE, cv, COLUMN_ID + " = ?", new String[]{String.valueOf(dataModel.getId())});
+
+        db.close();
     }
 
     public boolean deleteData (DataModel dataModel) {

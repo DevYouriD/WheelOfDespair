@@ -13,4 +13,6 @@
     <string name="save">Save</string>
     <string name="input_editor">Input Editor</string>
     <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="do_you_want_to_exit">Do you want to exit?</string>
 </resources>

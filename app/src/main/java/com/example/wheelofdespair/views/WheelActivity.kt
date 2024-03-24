@@ -1,17 +1,22 @@
 package com.example.wheelofdespair.views
 
-import com.example.wheelofdespair.wheel.WheelHelper
-import androidx.appcompat.app.AppCompatActivity
-import android.view.animation.RotateAnimation
-import android.view.animation.Animation
-import com.example.wheelofdespair.R
-import android.widget.ImageButton
-import android.widget.ListView
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ListView
+import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AppCompatActivity
+import com.example.wheelofdespair.R
 import com.example.wheelofdespair.sqlite.DataBaseHelper
 import com.example.wheelofdespair.sqlite.DataModel
+import com.example.wheelofdespair.wheel.WheelHelper
 
 class WheelActivity : AppCompatActivity() {
 
@@ -50,25 +55,29 @@ class WheelActivity : AppCompatActivity() {
 
         /** Clean code alternative (using modulo)
          *
-            var setColors = IntArray(data.size)
-            var counter = 0
-            for (item in 0 until data.size) {
-                setColors[item] = colors[counter % colors.size]
-                counter++
-            }
+        var setColors = IntArray(data.size)
+        var counter = 0
+        for (item in 0 until data.size) {
+        setColors[item] = colors[counter % colors.size]
+        counter++
+        }
          */
         // Dynamically change colors (own solution)
         val setColors = IntArray(data.size)
         var counter = 0
         for (item in 0 until data.size) {
-            if (counter == 12){
+            if (counter == 12) {
                 counter = 0
             }
             setColors[item] = colors[counter]
             counter++
         }
 
-        wheelHelper.setItemsAndColors(data.size, setColors.reversedArray(), DataModel.getNamesArray(data))
+        wheelHelper.setItemsAndColors(
+            data.size,
+            setColors.reversedArray(),
+            DataModel.getNamesArray(data)
+        )
 
         var fromDegrees = 0f
         var randomToDegrees = (1080..1800).random().toFloat()
@@ -89,6 +98,13 @@ class WheelActivity : AppCompatActivity() {
             val intent = Intent(this, SqliteActivity::class.java)
             startActivity(intent)
         }
+
+        // Modify back-button behavior
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                showExitPopup(this@WheelActivity)
+            }
+        })
     }
 
     private fun playRotateAnimation(view: View, fromDegrees: Float, randomToDegrees: Float) {
@@ -104,5 +120,26 @@ class WheelActivity : AppCompatActivity() {
         animation.duration = 2500
         animation.fillAfter = true
         view.startAnimation(animation)
+    }
+
+    private fun showExitPopup(context: Context) {
+        val dialogView = LayoutInflater.from(context).inflate(R.layout.exit_popup, null)
+
+        val btnConfirm = dialogView.findViewById<Button>(R.id.btnConfirm)
+        val btnCancel = dialogView.findViewById<Button>(R.id.btnCancel)
+
+        val dialogBuilder = AlertDialog.Builder(context)
+            .setView(dialogView)
+
+        val dialog = dialogBuilder.create()
+
+        btnConfirm.setOnClickListener {
+            finishAffinity()
+        }
+
+        btnCancel.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 }

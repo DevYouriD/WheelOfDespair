@@ -6,7 +6,7 @@ val constraintLayoutVersion = "2.1.4"
 val constraintLayoutComposeVersion = "1.0.1"
 val appCompatVersion = "1.6.1"
 val jUnitVersion = "4.13.2"
-val composeBomVersion = "2024.02.02"
+val composeBomVersion = "2024.03.00"
 
 plugins {
     id("com.android.application")

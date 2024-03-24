@@ -1,18 +1,18 @@
 package com.example.wheelofdespair.views
 
 import android.app.AlertDialog
-import com.example.wheelofdespair.sqlite.DataModel
-import com.example.wheelofdespair.R
-import android.widget.ArrayAdapter
-import android.view.LayoutInflater
-import android.widget.TextView
 import android.content.Context
-import android.view.ViewGroup
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.TextView
+import com.example.wheelofdespair.R
 import com.example.wheelofdespair.sqlite.DataBaseHelper
+import com.example.wheelofdespair.sqlite.DataModel
 
 class CustomArrayAdapter(
     private val activity: SqliteActivity,
@@ -83,11 +83,13 @@ class CustomArrayAdapter(
         val dialog = dialogBuilder.create()
 
         btnSave.setOnClickListener {
-            val databaseHelper = DataBaseHelper(context)
             val editedText = editTextData.text.toString()
-            //dataBaseHelper.updateData(data, editedText)
-            activity.updateListView(databaseHelper)
-            dialog.dismiss()
+            if (editedText.isNotEmpty()) {
+                val databaseHelper = DataBaseHelper(context)
+                databaseHelper.updateData(data, editedText)
+                activity.updateListView(databaseHelper)
+                dialog.dismiss()
+            }
         }
 
         btnCancel.setOnClickListener {

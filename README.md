@@ -5,9 +5,11 @@
 - ~~Make the wheel rotation random~~
 - ~~Create user input~~
 - ~~Save user input in db~~
-- Give the wheel a default color or value in case input equals 0
-- Make user input editable?
-- Create popup for "winner" (and confetti animation?)
+- ~~Give the wheel a default color or value in case input equals 0~~
+- ~~Make user input editable?~~
+  ~~- Make Edit functionality in sqliteHelper~~
+- Create popup for "winner" (and confetti animation!)
+- Set character limit for user input
 
 # MASTER SLAVE ARCHITECTURE
 ## Instructions

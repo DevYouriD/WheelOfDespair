@@ -8,6 +8,8 @@ import android.graphics.Rect
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.view.View
+import androidx.core.content.ContextCompat
+import com.example.wheelofdespair.R
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -44,58 +46,77 @@ class WheelHelper @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
-        val centerX = width / 2f
-        val centerY = height / 2f
-        val radius = (width.coerceAtMost(height) / 2f) - 20
+        if (data.isNotEmpty()) {
+            val centerX = width / 2f
+            val centerY = height / 2f
+            val radius = (width.coerceAtMost(height) / 2f) - 20
 
-        if (numberOfItems > 0) {
-            val angle = 360f / numberOfItems
-            var counter = 0
-            for (i in 0 until numberOfItems) {
-                // Draw circle
-                if (counter < numberOfItems) {
-                    paint.color = colors[i]
-                    counter++
-                }else {
-                    counter = 0
-                    paint.color = colors[i]
+            if (numberOfItems > 0) {
+                val angle = 360f / numberOfItems
+                var counter = 0
+                for (i in 0 until numberOfItems) {
+                    // Draw circle
+                    if (counter < numberOfItems) {
+                        paint.color = colors[i]
+                        counter++
+                    } else {
+                        counter = 0
+                        paint.color = colors[i]
+                    }
+
+                    canvas.drawArc(
+                        centerX - radius,
+                        centerY - radius,
+                        centerX + radius,
+                        centerY + radius,
+                        i * angle,
+                        angle,
+                        true,
+                        paint
+                    )
+
+                    // Draw the text
+                    val distanceToCenter = 0.93
+                    val textRotation = i * angle + angle / 2.0
+
+                    // Text size based on number of items
+                    val textSize = calculateTextSize(numberOfItems)
+
+                    textPaint.textSize = textSize
+
+                    val text = data[i]
+                    textPaint.getTextBounds(text, 0, text.length, textBounds)
+
+                    val textX = centerX + (radius * distanceToCenter) * cos(Math.toRadians(textRotation)) - textBounds.width() / 2
+                    val textY = centerY + (radius * distanceToCenter) * sin(Math.toRadians(textRotation)) + textBounds.height() / 2
+
+                    canvas.save()
+                    canvas.rotate(
+                        textRotation.toFloat(),
+                        (textX + textBounds.width() / 2).toFloat(), (textY - textBounds.height() / 2).toFloat()
+                    )
+                    canvas.drawText(text, textX.toFloat(), textY.toFloat(), textPaint)
+                    canvas.restore()
                 }
-
-                canvas.drawArc(
-                    centerX - radius,
-                    centerY - radius,
-                    centerX + radius,
-                    centerY + radius,
-                    i * angle,
-                    angle,
-                    true,
-                    paint
-                )
-
-                // Draw the text
-                val distanceToCenter = 0.93
-                val textRotation = i * angle + angle / 2.0
-
-                // Text size based on number of items
-                val textSize = calculateTextSize(numberOfItems)
-
-                textPaint.textSize = textSize
-
-                val text = data[i]
-                textPaint.getTextBounds(text, 0, text.length, textBounds)
-
-                val textX = centerX + (radius * distanceToCenter) * cos(Math.toRadians(textRotation)) - textBounds.width() / 2
-                val textY = centerY + (radius * distanceToCenter) * sin(Math.toRadians(textRotation)) + textBounds.height() / 2
-
-                canvas.save()
-                canvas.rotate(textRotation.toFloat(),
-                    (textX + textBounds.width() / 2).toFloat(), (textY - textBounds.height() / 2).toFloat()
-                )
-                canvas.drawText(text, textX.toFloat(), textY.toFloat(), textPaint)
-                canvas.restore()
             }
+        } else {
+            val centerX = width / 2f
+            val centerY = height / 2f
+            val radius = (width.coerceAtMost(height) / 2f) - 20
+
+            paint.color = ContextCompat.getColor(context, R.color.wheelColor3)
+            canvas.drawCircle(centerX, centerY, radius, paint)
+
+            // Draw the text in the middle
+            val text = "Press the “✎” button."
+            val textX = centerX
+            val textY = centerY // Center the text vertically
+            textPaint.textSize = 90f
+
+            canvas.drawText(text, textX, textY, textPaint)
         }
     }
+
 
     private fun calculateTextSize(numberOfItems: Int): Float {
         val baseTextSize = 80f
