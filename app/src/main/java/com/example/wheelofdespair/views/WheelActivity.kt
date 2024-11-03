@@ -11,7 +11,6 @@ import android.view.animation.RotateAnimation
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ListView
-import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wheelofdespair.R
@@ -123,7 +122,7 @@ class WheelActivity : AppCompatActivity() {
 
         // Set an animation listener to detect the end of rotation
         animation.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation) { }
+            override fun onAnimationStart(animation: Animation) { /* No action needed. */ }
 
             override fun onAnimationEnd(animation: Animation) {
                 // Calculate the final rotation angle
@@ -131,7 +130,7 @@ class WheelActivity : AppCompatActivity() {
                 determineWinningSection(finalRotationAngle)
             }
 
-            override fun onAnimationRepeat(animation: Animation) { }
+            override fun onAnimationRepeat(animation: Animation) { /* No action needed. */ }
         })
 
         view.startAnimation(animation)
