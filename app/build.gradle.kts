@@ -57,6 +57,7 @@ android {
 }
 
 dependencies {
+
     // BASE
     implementation("androidx.core:core-ktx:$coreKtxVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntimeKtxVersion")
@@ -83,5 +84,6 @@ dependencies {
     // DEBUG
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
+
 }
 
