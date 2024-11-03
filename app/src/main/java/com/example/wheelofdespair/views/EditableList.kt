@@ -14,7 +14,7 @@ import com.example.wheelofdespair.R
 import com.example.wheelofdespair.sqlite.DataBaseHelper
 import com.example.wheelofdespair.sqlite.DataModel
 
-class CustomArrayAdapter(
+class EditableList(
     private val activity: SqliteActivity,
     context: Context,
     resource: Int,

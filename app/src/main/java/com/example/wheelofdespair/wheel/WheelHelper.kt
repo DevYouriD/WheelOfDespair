@@ -117,7 +117,6 @@ class WheelHelper @JvmOverloads constructor(
         }
     }
 
-
     private fun calculateTextSize(numberOfItems: Int): Float {
         val baseTextSize = 80f
         val multiplier = 0.5f

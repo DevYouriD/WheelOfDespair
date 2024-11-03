@@ -75,7 +75,7 @@ class SqliteActivity : AppCompatActivity() {
     }
 
     fun updateListView(dataBaseHelper: DataBaseHelper) {
-      dataArrayAdapter = CustomArrayAdapter(
+      dataArrayAdapter = EditableList(
           this,
           this@SqliteActivity,
           R.layout.custom_list_view,

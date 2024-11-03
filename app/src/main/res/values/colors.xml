@@ -4,6 +4,7 @@
     <color name="colorPrimary">#1E1E1E</color>
     <color name="colorPrimaryDark"> #000000</color>
     <color name="colorAccent">#6DA5C0</color>
+    <color name="winnerPopup">#07706F</color>
 
     <!-- WHEEL COLORS -->
     <color name="wheelColor1">#1a1334 </color>

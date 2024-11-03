@@ -157,11 +157,8 @@ class WheelActivity : AppCompatActivity() {
         // Get the winning section
         val winningSection = data[sectionIndex]
 
-        Toast.makeText(
-            this,
-            "Winner: $winningSection",
-            Toast.LENGTH_SHORT)
-            .show()
+        val winnerPopup = WinnerPopup(this)
+        winnerPopup.showWinner(winningSection.input)
     }
 
     private fun showExitPopup(context: Context) {
