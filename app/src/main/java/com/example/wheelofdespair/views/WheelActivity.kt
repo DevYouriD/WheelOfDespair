@@ -138,14 +138,7 @@ class WheelActivity : AppCompatActivity() {
     }
 
     private fun determineWinningSection(finalAngle: Float) {
-        if (data.isEmpty()) {
-            Toast.makeText(
-                this,
-                "Add some items to the wheel by clicking on the pencil icon!",
-                Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
+        if (data.isEmpty()) { return }
 
         val anglePerSection = 360f / data.size
 
