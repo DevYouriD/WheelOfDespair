@@ -11,6 +11,7 @@ import android.view.animation.RotateAnimation
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ListView
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
 import com.example.wheelofdespair.R
@@ -119,7 +120,55 @@ class WheelActivity : AppCompatActivity() {
 
         animation.duration = 2500
         animation.fillAfter = true
+
+        // Set an animation listener to detect the end of rotation
+        animation.setAnimationListener(object : Animation.AnimationListener {
+            override fun onAnimationStart(animation: Animation) { }
+
+            override fun onAnimationEnd(animation: Animation) {
+                // Calculate the final rotation angle
+                val finalRotationAngle = randomToDegrees % 360
+                determineWinningSection(finalRotationAngle)
+            }
+
+            override fun onAnimationRepeat(animation: Animation) { }
+        })
+
         view.startAnimation(animation)
+    }
+
+    private fun determineWinningSection(finalAngle: Float) {
+        if (data.isEmpty()) {
+            Toast.makeText(
+                this,
+                "Add some items to the wheel by clicking on the pencil icon!",
+                Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+
+        val anglePerSection = 360f / data.size
+
+        // Adjust the final angle by adding a 90-degree offset (to shift the winning point to the top)
+        val adjustedAngle = (finalAngle + 90) % 360
+
+        // Determine the section index based on the adjusted angle
+        var sectionIndex = (adjustedAngle / anglePerSection).toInt()
+
+        // Reverse the index order for clockwise drawing
+        sectionIndex = data.size - sectionIndex - 1
+        if (sectionIndex < 0) {
+            sectionIndex += data.size
+        }
+
+        // Get the winning section
+        val winningSection = data[sectionIndex]
+
+        Toast.makeText(
+            this,
+            "Winner: $winningSection",
+            Toast.LENGTH_SHORT)
+            .show()
     }
 
     private fun showExitPopup(context: Context) {
