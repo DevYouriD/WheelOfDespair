@@ -8,8 +8,9 @@
 - ~~Give the wheel a default color or value in case input equals 0~~
 - ~~Make user input editable?~~
   ~~- Make Edit functionality in sqliteHelper~~
-- Create popup for "winner" (and confetti animation!)
-- Set character limit for user input
+- ~~Create popup for "winner"~~ (and confetti animation!)
+- ~~Set character limit for user input~~
+- Set section limit?
 
 # MASTER SLAVE ARCHITECTURE
 ## Instructions

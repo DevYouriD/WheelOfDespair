@@ -28,7 +28,6 @@ class WinnerPopup(
 
         val dialogBuilder = AlertDialog.Builder(context)
             .setView(dialogView)
-            .setCancelable(true)
 
         btnClose.setOnClickListener {
             dialog.dismiss()

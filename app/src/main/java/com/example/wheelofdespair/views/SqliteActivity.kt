@@ -2,6 +2,7 @@ package com.example.wheelofdespair.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputFilter
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
@@ -33,6 +34,9 @@ class SqliteActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sqlite)
 
         input = findViewById(R.id.input)
+
+        // Set maximum input length
+        input.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(10))
 
         btn_add = findViewById(R.id.btn_add)
         btn_deleteAll = findViewById(R.id.btn_deleteAll)
