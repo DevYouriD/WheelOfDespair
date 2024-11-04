@@ -1,54 +1,87 @@
+
 # WheelOfDespair
 
-## ToDO
-- ~~Display list items within wheel~~
-- ~~Make the wheel rotation random~~
-- ~~Create user input~~
-- ~~Save user input in db~~
-- ~~Give the wheel a default color or value in case input equals 0~~
-- ~~Make user input editable?~~
-  ~~- Make Edit functionality in sqliteHelper~~
-- ~~Create popup for "winner"~~ (and confetti animation!)
-- ~~Set character limit for user input~~
-- Set section limit?
+## Description
+I started this project because I wanted to learn the basics of Kotlin and Android App development 
+in a fun way.
 
-# MASTER SLAVE ARCHITECTURE
-## Instructions
-To create an Android Kotlin app with both user and admin versions that can trigger events simultaneously across all user/client versions, you'll need to implement a client-server architecture with real-time communication. Here's a high-level overview of the steps to achieve this:
+I got the idea to make a "wheel of fortune" game because I saw a similar wheel in a movie and began
+to wonder how I would create something like similar in code.
 
-1. **Server Backend**:
-   - Set up a server backend that acts as an intermediary for communication between admin and user clients. You can use technologies like Node.js, Python (Django/Flask), Ruby on Rails, or any backend framework you are comfortable with.
-   - Implement authentication mechanisms to differentiate between admin and user clients.
+A few commits later and now we know. Some math to get the wheel working and a lot of styling to
+make the Android application look nice.
 
-2. **Real-time Messaging**:
-   - Use a real-time messaging system like WebSockets to establish a persistent connection between the server and all connected clients. WebSocket libraries are available for various programming languages.
-   - When a user or admin client connects to the server, they should join a relevant channel or room. Admins join the admin channel, while users join user channels.
+## Tools/ Technologies used
+- Kotlin (and a little bit of java)
+- Gradle build tool
+- Trello
+- GitHub
+- SQLite
+- Pen and paper (for designs)
+- [PlantUML](https://plantuml.com/en-dark/)
+- Junit
 
-3. **Admin App**:
-   - Create the admin version of your Android app. This app should have functionalities for the admin to trigger events.
-   - When the admin triggers an event, send a WebSocket message to the server with the event data. The server will then broadcast this event to all connected user clients.
+## Example Project Structure
+```text
+src
+├── main
+│   ├── java
+│   │   └── com.example.chatapp
+│   │       ├── ui
+│   │       │   ├── activity
+│   │       │   ├── fragment
+│   │       │   └── compose
+│   │       ├── data
+│   │       │   ├── model
+│   │       │   ├── repository
+│   │       │   └── local
+│   │       ├── network
+│   │       ├── di
+│   │       ├── util
+│   │       ├── service
+│   │       └── ChatApp.kt
+│   ├── res
+│   │   ├── layout
+│   │   ├── values
+│   │   ├── drawable
+│   │   └── mipmap
+│   ├── assets
+│   ├── AndroidManifest.xml
+│   └── kotlin
+└── test
+    └── java
+        └── com.example.chatapp
+            ├── ui
+            ├── data
+            └── ChatAppTests.kt
+```
 
-4. **User App**:
-   - Create the user version of your Android app. This app should have the necessary functionality to receive and respond to events triggered by the admin.
-   - When a user client receives an event message from the server via WebSocket, it should process the event and update its UI or perform the required action.
+## TODO
+- [ ] Wheel
+  - [x] Create wheel page
+  - [x] Figure out wheel logic
+  - [x] Display list items within wheel
+  - [x] Create popup for "winner"
+  - [ ] Create confetti animation?
+  - [ ] Set section limit
+- [ ] Storage
+  - [x] Create input/ storage page
+  - [x] Handle user input
+  - [x] Set up database
+  - [x] Save user input in db
+  - [x] Make inserted data editable
+  - [ ] Set character limit for user input
+- [ ] Design
+  - [x] Select app color palette theming
+  - [x] Find/ create custom attributes like button icons, popup windows, etc
+  - [x] Give the wheel a default color or value in case input equals 0
+  - [ ] Make attributes look nicer (visual reformatting)
+- [ ] Other
+  - [x] Handle navigation between pages
+  - [ ] Clean up code
+    - [ ] Implement code quality plugins (e.g. checkstyle, pmd, spotbugs)
+    - [ ] Scan project with sonarlint/ sonarqube
 
-5. **WebSocket Integration**:
-   - Use a WebSocket library for Kotlin/Android to establish and manage WebSocket connections in your Android apps. Some popular libraries include OkHttp and Scarlet.
+<br>
 
-6. **Authentication and Authorization**:
-   - Ensure that your server backend has proper authentication and authorization mechanisms to prevent unauthorized access to admin functionalities.
-
-7. **Testing and Deployment**:
-   - Test your admin and user apps to ensure they work as expected.
-   - Deploy your server backend to a hosting provider or server that can handle WebSocket connections.
-
-8. **Error Handling and Resilience**:
-   - Implement error handling and retries in your Android apps to handle network issues and ensure the app can reconnect to the server if the connection is lost.
-
-9. **Security**:
-   - Ensure that your WebSocket communication is secure by using secure WebSocket connections (wss://) and following best practices for data validation and sanitization.
-
-10. **Scalability**:
-    - If your app is expected to have a large number of users, consider implementing load balancing and scaling strategies for your server backend.
-
-Remember that real-time communication can be complex, so thorough testing and error handling are crucial to ensure a reliable experience for your users and admins. Additionally, consider the scalability requirements and infrastructure needed to support your app's expected user base.
+![Funny cat](https://preview.redd.it/pray-for-my-cat-he-has-a-serious-gambling-addiction-v0-1w2102sqgl2a1.jpg?width=640&crop=smart&auto=webp&s=abd9d74fc6618b1a130f4575b9b6d5acd1a3b720)
